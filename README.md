@@ -40,3 +40,4 @@ PyTorch 学習中に「fake quantization」モジュールを挿入し、量子�
    - NotImplementedError: Could not run 'quantized::conv2d.new' with arguments from the 'CPU' backend. 
 ## QAT（擬似量子化）で学習した重みを活かしつつ、ONNX に変換して他のフレームワーク（Caleyvr等）で使う
    - FakeQuant を削除し、quantized layer を使わず float 化する
+## ONNXモデルの精度検証
