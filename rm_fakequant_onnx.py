@@ -25,6 +25,16 @@ def remove_fakequant(model):
 
 model_cleaned = remove_fakequant(model_prepared)
 
+# === FakeQuant層だけ削除（安全版） ===
+def remove_fakequant_safe(module):
+    for name, child in module.named_children():
+        if isinstance(child, (FakeQuantize, FusedMovingAvgObsFakeQuantize)):
+            setattr(module, name, nn.Identity())
+        else:
+            remove_fakequant_safe(child)
+    return module
+
+model_cleaned = remove_fakequant_safe(model_prepared)
 # === 4. ONNXエクスポート ===
 dummy_input = torch.randn(1, 3, 224, 224)
 
