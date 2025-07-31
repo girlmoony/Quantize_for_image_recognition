@@ -36,4 +36,7 @@ PyTorch 学習中に「fake quantization」モジュールを挿入し、量子�
 その後 ONNX に書き出す際には、すでに量子化を考慮したパラメータを含んだモデルとなるため、bin への変換時の誤差が軽減され、高精度な INT8/FIX16 推論が可能になります。
 ```
 ## QAT学習済みモデル（PyTorch）を .pth から読み込み → convert() → ONNXに変換する
-   - 
+   - QAT学習済モデルをconvertした後onnx変換時にエラー
+   - NotImplementedError: Could not run 'quantized::conv2d.new' with arguments from the 'CPU' backend. 
+## QAT（擬似量子化）で学習した重みを活かしつつ、ONNX に変換して他のフレームワーク（Caleyvr等）で使う
+   - FakeQuant を削除し、quantized layer を使わず float 化する
