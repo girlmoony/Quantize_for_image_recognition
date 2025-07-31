@@ -35,4 +35,5 @@ model_quantized = convert(model_prepared.eval())
 PyTorch 学習中に「fake quantization」モジュールを挿入し、量子化ノイズを学習時に模擬します。
 その後 ONNX に書き出す際には、すでに量子化を考慮したパラメータを含んだモデルとなるため、bin への変換時の誤差が軽減され、高精度な INT8/FIX16 推論が可能になります。
 ```
-
+## QAT学習済みモデル（PyTorch）を .pth から読み込み → convert() → ONNXに変換する
+   - 
