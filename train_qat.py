@@ -9,6 +9,17 @@ from torch.utils.data import DataLoader
 model = efficientnet_b0(pretrained=True)
 model.classifier[1] = nn.Linear(model.classifier[1].in_features, num_classes)  # 例: num_classes=288
 
+# --- 1-1. optional ---
+    if init_weight_path:
+        init_weight = torch.load(init_weight_path, map_location=torch.device("cuda" if torch.cuda.is_available() else "cpu"))
+        iw_num_classes, num_ftrs = init_weight["classifier.1.weight"].shape
+        model.classifier[1] = nn.Linear(num_ftrs, iw_num_classes)
+        model.load_state_dict(init_weight)    
+    num_ftrs = model.classifier[1].in_features
+    model.classifier[1] = nn.Linear(num_ftrs, num_classes)
+ 
+ 
+
 for param in model.parameters():
     param.requires_grad = True  # 全層Unfreeze
 
