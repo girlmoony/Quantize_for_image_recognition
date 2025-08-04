@@ -14,7 +14,7 @@ GPU上では非常に高精度なのに、
 
 ## 推奨される対応策
 ### 1. 量子化-aware Training (QAT)を導入
-   - PyTorchで量子化-aware training（QAT）を使ってからONNXに変換してください。
+   - PyTorchで量子化-aware training（QAT）を使用する
    - QATでは量子化のノイズを学習中にシミュレートするため、binでの精度が大きく向上します。
 ```
 # PyTorch QAT準備（簡略例）
