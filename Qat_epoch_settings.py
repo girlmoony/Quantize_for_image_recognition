@@ -19,7 +19,9 @@ model = efficientnet_b0(pretrained=True)
 model.classifier[1] = nn.Linear(model.classifier[1].in_features, 10)
 model = model.to(device)
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=1e-4)
+# optimizer = optim.Adam(model.parameters(), lr=1e-4)
+optimizer = torch.optim.SGD(model.parameters(), lr=0.01, momentum=0.9, weight_decay=1e-4)
+scheduler = StepLR(optimizer, step_size=40, gamma=0.1)
 
 # ====== QAT 準備関数 ======
 def enable_qat(model):
