@@ -43,8 +43,18 @@ def read_mapping(excel_path: Path, sheet: str, col_a: str, col_b: str) -> pd.Dat
             raise ValueError(f"列 '{c}' がシート '{sheet}' に見つかりません。")
     return df
 
-def is_blank(x: pd.Series) -> bool:
-    return pd.isna(x) or (str(x).strip() == "") or (x == pd.NA)
+# def is_blank(x: pd.Series) -> bool:
+#     return pd.isna(x) or (str(x).strip() == "") or (x == pd.NA)
+def is_blank(x) -> bool:
+    if x is None:
+        return True
+    try:
+        if pd.isna(x):
+            return True
+    except Exception:
+        pass
+    s = str(x).strip()
+    return s == "" or s.lower() in ["nan", "<na>"]
 
 def find_dirs_by_name(root: Path, name: str, max_depth: int = 5) -> List[Path]:
     """
